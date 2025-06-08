@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 project(Meeus C)
 
+enable_testing()
+
 # Specify the C standard
 set(CMAKE_C_STANDARD 17)
 set(CMAKE_C_STANDARD_REQUIRED ON)
@@ -14,5 +16,6 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
 include_directories(include)
 
 # Add subdirectories
-add_subdirectory(src)
-
+add_subdirectory("src")
+add_subdirectory("test")
+add_subdirectory("example")
