@@ -1,17 +1,23 @@
-# Add executable
-add_executable(test_coordinates
-  "test_coordinates.c"
-  "${PROJECT_SOURCE_DIR}/unity/unity.c"
-)
+# Function to define a Unity test target
+function(add_unity_test test_name)
 
-# Include headers for both Unity and project
-target_include_directories(test_coordinates PRIVATE
-  "${PROJECT_SOURCE_DIR}/include"
-  "${PROJECT_SOURCE_DIR}/unity"
-)
+  add_executable(${test_name}
+    ${test_name}.c
+    ${PROJECT_SOURCE_DIR}/unity/unity.c
+  )
 
-# Link the project library
-target_link_libraries(test_coordinates PRIVATE meeus)
+  target_include_directories(${test_name} PRIVATE
+    ${PROJECT_SOURCE_DIR}/include
+    ${PROJECT_SOURCE_DIR}/unity
+  )
 
-# Register the test with CTest
-add_test(NAME test_coordinates COMMAND test_coordinates)
+  target_compile_definitions(${test_name} PRIVATE UNITY_INCLUDE_DOUBLE UNITY_OUTPUT_COLOR)
+
+  target_link_libraries(${test_name} PRIVATE meeus)
+
+  add_test(NAME ${test_name} COMMAND ${test_name})
+endfunction()
+
+# Add your test targets here
+add_unity_test(test_coordinates)
+add_unity_test(test_time)
