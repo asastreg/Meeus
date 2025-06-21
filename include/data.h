@@ -2,10 +2,8 @@
 #ifndef DATA_H
 #define DATA_H
 
-#define obl_ecliptic_2000 23.4392911
-
-#define deg2rad 0.01745329252
-#define rad2deg 57.29577951
+#define OBL_ECL_2000_DEG 23.4392911
+#define OBL_ECL_2000_RAD 0.4090928042
 
 typedef enum
 {
@@ -46,7 +44,7 @@ typedef struct
 
 typedef struct
 {
-  unsigned int degree;
+  int degree;
   unsigned int minute;
   double second;
 } Degrees_TypeDef;
@@ -54,7 +52,7 @@ typedef struct
 
 typedef struct
 {
-  double right_ascension; ///< Measured from north to east, (hour)
+  double right_ascension; ///< Measured from north to east (hour)
   double declination; ///< Positive in north of celestial equator, negative if south (deg)
 } EquatorialCoord_TypeDef;
 
@@ -68,14 +66,14 @@ typedef struct
 
 typedef struct
 {
-  double azimuth; ///< Measured from north to east (deg)
+  double azimuth; ///< Measured from south to west (deg)
   double altitude; ///< Positive above the horizon, negative below (deg)
 } LocalHorizontalCoord_TypeDef;
 
 
 typedef struct
 {
-  double longitude; ///< Measured from the main meridian, positive east, negative west (deg)
+  double longitude; ///< Measured from the main meridian, positive west, negative east (deg)
   double latitude;  ///< Positive if north of equator, negative if south (deg)
 } GeodeticCoord_TypeDef;
 

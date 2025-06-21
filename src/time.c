@@ -1,6 +1,8 @@
 
 #include "time.h"
 
+#include "utils.h"
+
 #include <math.h>
 
 
@@ -144,25 +146,65 @@ void get_time_from_degrees(double degrees, Time_TypeDef* time)
   time->second = fraction_second;
 }
 
-void get_decimal_degrees_from_time(Time_TypeDef time, double* dec_degrees)
+void convert_time_to_decimal_degrees(Time_TypeDef time, double* dec_degrees)
 {
-  *dec_degrees = (time.hour + (time.minute + time.second / 60.0) / 60.0) * 15.0;
+  // Initialize variables
+  double deg;
+
+  // Calculate degrees from time
+  deg = (time.hour + (time.minute + time.second / 60.0) / 60.0) * 15.0;
+  deg = deg_to_360(deg);
+
+  *dec_degrees = deg;
 }
 
-void get_decimal_degrees_from_degrees(Degrees_TypeDef degrees, double* dec_degrees)
+void convert_degrees_to_decimal_degrees(Degrees_TypeDef degrees, double* dec_degrees)
 {
   *dec_degrees = degrees.degree + (degrees.minute + degrees.second / 60.0) / 60.0;
 }
 
-void get_greenwich_mean_sideral_time(Date_TypeDef date, Time_TypeDef* gmst)
+void convert_decimal_degrees_to_degrees(double dec_degrees, Degrees_TypeDef* degrees)
 {
+  // Initialize variables
+  double fraction_minute, fraction_second;
+
+  // Calculate degrees, minutes and seconds
+  degrees->degree = (int)dec_degrees;
+  fraction_minute = fabs(dec_degrees - degrees->degree) * 60.0;
+  degrees->minute = (unsigned int)fraction_minute;
+  fraction_second = (fraction_minute - degrees->minute) * 60.0;
+  degrees->second = fraction_second;
+}
+
+void get_greenwich_mean_sideral_time_from_jd(double jd, Time_TypeDef* gmst)
+{
+  // Initialize variables
+  double T, gmst_deg;
+
+  // Calculate the Julian centuries since J2000.0
+  calculate_julian_centuries_from_jd(jd, &T);
+
+  // Calculate GMST in degrees
+  gmst_deg = 280.46061837 + 360.98564736629 * (jd - 2451545.0) + 0.000387933 * T * T - (T * T * T) / 38710000.0;
+  gmst_deg = deg_to_360(gmst_deg);
+
+  // Convert GMST from degrees to time
+  get_time_from_degrees(gmst_deg, gmst);
+}
+
+void get_greenwich_mean_sideral_time_from_date(Date_TypeDef date, Time_TypeDef* gmst)
+{
+  // Initialize variables
   double jd;
+
+  // Convert the date to Julian day
   date_to_jd(date, &jd);
 
-  double T = (jd - 2451545.0) / 36525;
+  // Calculate GMST from Julian day
+  get_greenwich_mean_sideral_time_from_jd(jd, gmst);
+}
 
-  double gmst_deg = 280.46061837 + 360.98564736629 * (jd - 2451545.0) + 0.000387933 * T * T - (T * T * T) / 38710000;
-  gmst_deg = fmod(fmod(gmst_deg, 360.0) + 360.0, 360.0);
-
-  get_time_from_degrees(gmst_deg, gmst);
+void calculate_julian_centuries_from_jd(double jd, double* T)
+{
+  *T = (jd - 2451545.0) / 36525.0;
 }

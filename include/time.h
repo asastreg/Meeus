@@ -73,13 +73,32 @@ void day_of_week(Date_TypeDef date, WeekDay_Type* weekDay);
 
 void get_time_from_degrees(double degrees, Time_TypeDef* time);
 
+/**
+ * @brief Get the degrees [0, 360) from a Time object
+ *
+ * @param time Input Time object
+ * @param degrees Output degrees
+ */
+void convert_time_to_decimal_degrees(Time_TypeDef time, double* degrees);
 
-void get_decimal_degrees_from_time(Time_TypeDef time, double* dec_degrees);
+
+void convert_degrees_to_decimal_degrees(Degrees_TypeDef degrees, double* dec_degrees);
 
 
-void get_decimal_degrees_from_degrees(Degrees_TypeDef degrees, double* dec_degrees);
+void convert_decimal_degrees_to_degrees(double dec_degrees, Degrees_TypeDef* degrees);
 
 
-void get_greenwich_mean_sideral_time(Date_TypeDef date, Time_TypeDef* gmst);
+void get_greenwich_mean_sideral_time_from_jd(double jd, Time_TypeDef* gmst);
+
+
+void get_greenwich_mean_sideral_time_from_date(Date_TypeDef date, Time_TypeDef* gmst);
+
+/**
+ * @brief Calculate the Julian centuries from a given Julian day
+ *
+ * @param jd Julian day
+ * @param T Julian centuries since J2000.0
+ */
+void calculate_julian_centuries_from_jd(double jd, double* T);
 
 #endif
