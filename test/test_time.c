@@ -758,12 +758,12 @@ void test_day_of_week_005(void)
 
 
 
-void test_get_greenwich_mean_sideral_time_from_date_001(void)
+void test_calculate_greenwich_mean_sideral_time_from_date_001(void)
 {
   Date_TypeDef date = {1987, 4, 10, {19, 21, 0.0}, CALENDAR_GREGORIAN};
   Time_TypeDef gmst;
 
-  get_greenwich_mean_sideral_time_from_date(date, &gmst);
+  calculate_greenwich_mean_sideral_time_from_date(date, &gmst);
 
   TEST_ASSERT_EQUAL(8, gmst.hour);
   TEST_ASSERT_EQUAL(34, gmst.minute);
@@ -847,7 +847,7 @@ int main(void)
   // RUN_TEST(test_day_of_week_004);
   RUN_TEST(test_day_of_week_005);
 
-  RUN_TEST(test_get_greenwich_mean_sideral_time_from_date_001);
+  RUN_TEST(test_calculate_greenwich_mean_sideral_time_from_date_001);
 
   return UNITY_END();
 }

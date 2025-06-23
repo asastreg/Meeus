@@ -192,7 +192,7 @@ void calculate_greenwich_mean_sideral_time_from_jd(double jd, Time_TypeDef* gmst
   get_time_from_degrees(gmst_deg, gmst);
 }
 
-void get_greenwich_mean_sideral_time_from_date(Date_TypeDef date, Time_TypeDef* gmst)
+void calculate_greenwich_mean_sideral_time_from_date(Date_TypeDef date, Time_TypeDef* gmst)
 {
   // Initialize variables
   double jd;

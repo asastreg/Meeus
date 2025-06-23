@@ -87,11 +87,21 @@ void convert_degrees_to_decimal_degrees(Degrees_TypeDef degrees, double* dec_deg
 
 void convert_decimal_degrees_to_degrees(double dec_degrees, Degrees_TypeDef* degrees);
 
-
+/**
+ * @brief Calculate the Greenwich Mean Sidereal Time (GMST) from a given Julian day
+ *
+ * @param jd Julian day
+ * @param gmst Time object to store GMST
+ */
 void calculate_greenwich_mean_sideral_time_from_jd(double jd, Time_TypeDef* gmst);
 
-
-void get_greenwich_mean_sideral_time_from_date(Date_TypeDef date, Time_TypeDef* gmst);
+/**
+ * @brief Calculate the Greenwich Mean Sidereal Time (GMST) from a given date
+ *
+ * @param date Date object containing year, month, day, time, and calendar type
+ * @param gmst Time object to store GMST
+ */
+void calculate_greenwich_mean_sideral_time_from_date(Date_TypeDef date, Time_TypeDef* gmst);
 
 /**
  * @brief Calculate the Julian centuries from a given Julian day
