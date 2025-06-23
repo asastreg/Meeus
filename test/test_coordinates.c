@@ -65,16 +65,16 @@ void test_transform_ecliptical_to_equatorial_coord_001(void)
 
 void test_transform_equatorial_to_local_horizontal_coord_001(void)
 {
-  EquatorialCoord_TypeDef eqCoord = {10.139241, 11.968222};
+  EquatorialCoord_TypeDef eqCoord = {10.139769, 11.965861};
   GeodeticCoord_TypeDef geoCoord = {3.469730, 40.455350};
-  double jd = 2460846.5; // Julian day for 2025-06-20
+  double jd = 2451544.5; // Julian day for 2025-06-20
 
   LocalHorizontalCoord_TypeDef lhCoord;
 
   transform_equatorial_to_local_horizontal_coord(eqCoord, geoCoord, jd, &lhCoord);
 
-  TEST_ASSERT_FLOAT_WITHIN(0.0001, 114.189700, lhCoord.azimuth);
-  TEST_ASSERT_FLOAT_WITHIN(0.0001, -8.923499, lhCoord.altitude);
+  TEST_ASSERT_FLOAT_WITHIN(0.0001, 283.974695, lhCoord.azimuth);
+  TEST_ASSERT_FLOAT_WITHIN(0.0001, 33.717048, lhCoord.altitude);
 }
 
 void test_transform_equatorial_to_local_horizontal_coord_002(void)
@@ -145,6 +145,20 @@ void test_transform_equatorial_to_local_horizontal_coord_006(void)
 
   TEST_ASSERT_FLOAT_WITHIN(0.0001, 5.838636, lhCoord.azimuth);
   TEST_ASSERT_FLOAT_WITHIN(0.0001, -36.089099, lhCoord.altitude);
+}
+
+void test_transform_equatorial_to_local_horizontal_coord_007(void)
+{
+  EquatorialCoord_TypeDef eqCoord = {20.690063, 45.282194}; // Invalid coordinates
+  GeodeticCoord_TypeDef geoCoord = {3.469730, 40.455350};
+  double jd = 2451544.5; // Julian day for 2000-01-01
+
+  LocalHorizontalCoord_TypeDef lhCoord;
+
+  transform_equatorial_to_local_horizontal_coord(eqCoord, geoCoord, jd, &lhCoord);
+
+  TEST_ASSERT_FLOAT_WITHIN(0.0001, 156.920331, lhCoord.azimuth);
+  TEST_ASSERT_FLOAT_WITHIN(0.0001, 0.941923, lhCoord.altitude);
 }
 
 
@@ -232,6 +246,20 @@ void test_transform_local_horizontal_coord_to_equatorial_006(void)
   TEST_ASSERT_FLOAT_WITHIN(0.0001, -83.672361, eqCoord.declination);
 }
 
+void test_transform_local_horizontal_coord_to_equatorial_007(void)
+{
+  LocalHorizontalCoord_TypeDef lhCoord = {156.920331, 0.941923}; // Invalid coordinates
+  GeodeticCoord_TypeDef geoCoord = {3.469730, 40.455350};
+  double jd = 2451544.5; // Julian day for 2000-01-01
+
+  EquatorialCoord_TypeDef eqCoord;
+
+  transform_local_horizontal_to_equatorial_coord(lhCoord, geoCoord, jd, &eqCoord);
+
+  TEST_ASSERT_FLOAT_WITHIN(0.0001, 20.690063, eqCoord.right_ascension);
+  TEST_ASSERT_FLOAT_WITHIN(0.0001, 45.282194, eqCoord.declination);
+}
+
 int main(void)
 {
   UNITY_BEGIN();
@@ -245,6 +273,7 @@ int main(void)
   RUN_TEST(test_transform_equatorial_to_local_horizontal_coord_004);
   RUN_TEST(test_transform_equatorial_to_local_horizontal_coord_005);
   RUN_TEST(test_transform_equatorial_to_local_horizontal_coord_006);
+  RUN_TEST(test_transform_equatorial_to_local_horizontal_coord_007);
 
   RUN_TEST(test_transform_local_horizontal_coord_to_equatorial_001);
   RUN_TEST(test_transform_local_horizontal_coord_to_equatorial_002);
@@ -252,6 +281,7 @@ int main(void)
   RUN_TEST(test_transform_local_horizontal_coord_to_equatorial_004);
   RUN_TEST(test_transform_local_horizontal_coord_to_equatorial_005);
   RUN_TEST(test_transform_local_horizontal_coord_to_equatorial_006);
+  RUN_TEST(test_transform_local_horizontal_coord_to_equatorial_007);
 
   return UNITY_END();
 }
