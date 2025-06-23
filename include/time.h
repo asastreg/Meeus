@@ -88,7 +88,7 @@ void convert_degrees_to_decimal_degrees(Degrees_TypeDef degrees, double* dec_deg
 void convert_decimal_degrees_to_degrees(double dec_degrees, Degrees_TypeDef* degrees);
 
 
-void get_greenwich_mean_sideral_time_from_jd(double jd, Time_TypeDef* gmst);
+void calculate_greenwich_mean_sideral_time_from_jd(double jd, Time_TypeDef* gmst);
 
 
 void get_greenwich_mean_sideral_time_from_date(Date_TypeDef date, Time_TypeDef* gmst);

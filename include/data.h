@@ -52,7 +52,7 @@ typedef struct
 
 typedef struct
 {
-  double right_ascension; ///< Measured from north to east (hour)
+  double right_ascension; ///< Measured from south to west (hour)
   double declination; ///< Positive in north of celestial equator, negative if south (deg)
 } EquatorialCoord_TypeDef;
 

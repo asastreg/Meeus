@@ -31,5 +31,14 @@ void transform_ecliptical_to_equatorial_coord(EclipticalCoord_TypeDef ecCoord, E
  */
 void transform_equatorial_to_local_horizontal_coord(EquatorialCoord_TypeDef eqCoord, GeodeticCoord_TypeDef geoCoord, double jd, LocalHorizontalCoord_TypeDef* lhCoord);
 
+/**
+ * @brief Transform local horizontal coordinates to equatorial coordinates
+ *
+ * @param lhCoord Input local horizontal coordinates
+ * @param geoCoord Geodetic coordinates of the observer
+ * @param jd Julian day of the observation
+ * @param eqCoord Output equatorial coordinates
+ */
+void transform_local_horizontal_to_equatorial_coord(LocalHorizontalCoord_TypeDef lhCoord, GeodeticCoord_TypeDef geoCoord, double jd, EquatorialCoord_TypeDef* eqCoord);
 
 #endif

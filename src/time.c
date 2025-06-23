@@ -176,7 +176,7 @@ void convert_decimal_degrees_to_degrees(double dec_degrees, Degrees_TypeDef* deg
   degrees->second = fraction_second;
 }
 
-void get_greenwich_mean_sideral_time_from_jd(double jd, Time_TypeDef* gmst)
+void calculate_greenwich_mean_sideral_time_from_jd(double jd, Time_TypeDef* gmst)
 {
   // Initialize variables
   double T, gmst_deg;
@@ -201,7 +201,7 @@ void get_greenwich_mean_sideral_time_from_date(Date_TypeDef date, Time_TypeDef* 
   date_to_jd(date, &jd);
 
   // Calculate GMST from Julian day
-  get_greenwich_mean_sideral_time_from_jd(jd, gmst);
+  calculate_greenwich_mean_sideral_time_from_jd(jd, gmst);
 }
 
 void calculate_julian_centuries_from_jd(double jd, double* T)
